@@ -1,0 +1,50 @@
+import java.util.*;
+public class ModeloArrayList extends ModeloAbs
+{
+    private ArrayList <Producto> lista;
+    
+    public ModeloArrayList()
+    {
+       lista=new ArrayList <Producto>();
+    }
+
+    // Implementar los metodos abstractos de ModeloAbs
+    public boolean insertarProducto ( Producto p){
+        boolean sn=false;
+      if(!lista.contains(p)){
+             lista.add(p);
+             sn=true;
+        }
+        return sn;
+     }
+ 
+    public boolean borrarProducto ( int codigo ){
+	 if(lista.contains(codigo)){
+	     lista.remove(codigo);
+	     return true;
+	   }else{
+	       return false;
+	   }
+    }
+    
+    public Producto buscarProducto ( int codigo) {
+        Producto encontrado=null;
+        for(int i=0;i<lista.size();i++){
+            if(lista.contains(codigo)){
+                encontrado=lista.get(i);
+            }
+        }
+        return encontrado;
+    }
+    
+    public void listarProductos (){
+         System.out.println("Los productos disponibles en tienda son: ");
+	 System.out.println(lista.toArray());
+    }
+    
+    public boolean modificarProducto (Producto nuevo){
+       return true;
+    }
+    
+    
+}    
