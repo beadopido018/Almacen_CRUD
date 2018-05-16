@@ -1,4 +1,5 @@
-public class Producto
+import java.io.Serializable;
+public class Producto implements Serializable
 {
     // instance variables - replace the example below with your own
     int codigo;    // Código del producto, se utiliza para buscar
