@@ -1,0 +1,88 @@
+import java.util.*;
+import java.io.*;
+public class ArrayListFileObj extends ModeloArrayList
+{
+   static final String fichero = "productos.csv";
+
+
+    public ModeloArrayListFileObj()
+    {
+        super();
+        cargarFichero();
+    }
+
+ 
+    public void salvafichero()
+    {
+        File ficheroproductos=new File(fichero);
+        
+        try{
+         FileOutputStream fos= new FileOutputStream(ficheroproductos);
+         ObjectOutputStream oos= new ObjectOutputStream(fos);
+         
+         for(Producto pro: lista){
+             oos.writeObject(pro);
+            }
+            
+            oos.close();
+            fos.close();
+        }catch(IOException ioe){
+            ioe.printStrackTrace();
+        }
+    }
+    
+    public void cargarFichero() {
+        File ficheroproductos =new File (fichero);
+        if ( !ficheroproductos.exists() ){
+           return false; 
+        }
+        try{
+         
+         FileInputStream fin= new FileInputStream(ficheroproductos);
+        
+         ObjectInputStream oin= new ObjectInputStream(fin);
+         
+         try {
+              Producto pro = (Producto) oin.readObject();
+              while ( true ){
+                lista.add(pro); 
+                pro = (Producto) oin.readObject();  
+                }
+            }
+          catch (IOException ex){} 
+         
+         oin.close(); 
+         fin.close(); 
+       }catch(IOException ioe){
+            ioe.printStackTrace();
+        }    
+       catch (ClassNotFoundException ex){
+            ex.printStackTrace();
+        }    
+    }
+
+    public boolean insertaProducto ( Producto p){
+      boolean resu = super.insertarProducto(p);
+      if ( resu ){
+          salvafichero();
+      }
+      return resu;
+    }
+ 
+    public boolean borrarProducto ( int codigo ){
+      boolean resu = super.borrarProducto(codigo);
+      if ( resu ){
+          salvafichero();
+        }
+      return resu;
+    }
+    
+    
+    public boolean modificarProducto (Producto nuevo){
+       boolean resu = super.modificarProducto(nuevo);
+       if ( resu ){
+           salvafichero();
+        }
+       return (resu);
+    }
+}
