@@ -42,8 +42,13 @@ public class ModeloArrayList extends ModeloAbs
 	 System.out.println(lista.toArray());
     }
     
-    public boolean modificarProducto (Producto nuevo){
-       return true;
+       public boolean modificarProducto (Producto nuevo){
+       Producto p; boolean modificado=false;
+       int i = lista.indexOf(nuevo);
+       if(i!=-1){
+           modificado=true;
+        }
+       return modificado;
     }
     
     
